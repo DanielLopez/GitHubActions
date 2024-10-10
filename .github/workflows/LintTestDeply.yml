@@ -1,0 +1,34 @@
+name: lintTestDeploy
+on: 
+  workflow_dispatch
+  push:
+    branches:
+      - master
+jobs:
+  lintTestDeploy:
+    runs-on: ubuntu-latest    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Specify the Node.js version
+
+    - name: Install dependencies
+      run: |
+        npm install  
+        npm install eslint --save-dev    
+
+    - name: lint
+      run: npx eslint --ext .jsx --fix src
+    
+    - name: test
+      run: npx vitest run      
+    
+    - name: build
+      run: npx vite build
+    
+    - name: deploy
+      run: echo "Deploying"
