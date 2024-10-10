@@ -1,1 +1,1 @@
-Write Me.
+Sample Project to learn GitHub actions.
